@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'fundsHub.accounts',
     'fundsHub.common',
+    'fundsHub.fundraisers',
 ]
 
 MIDDLEWARE = [
