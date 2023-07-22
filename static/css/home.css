@@ -6,21 +6,25 @@
     font-family: 'Amatic SC', cursive;
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
 .navbar-nav>li>a {
     padding-top: 20px;
     padding-bottom: 20px;
 }}
 
-#get-started{
+#get-started {
     color: #ffffff;
 }
 
-.jumbotron{
+.jumbotron {
     background-image: url("/static/images/background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    padding-top: 380px;
-    padding-bottom: 380px;
+    padding-top: 250px;
+    padding-bottom: 250px;
+}
+
+.text-left {
+    text-align: left;
 }

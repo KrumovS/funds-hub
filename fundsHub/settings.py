@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'fundsHub.accounts',
     'fundsHub.common',
-    'fundsHub.fundraisers',
+    'fundsHub.projects',
 ]
 
 MIDDLEWARE = [

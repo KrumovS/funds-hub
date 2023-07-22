@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('fundsHub.common.urls')),
     #path('accounts', include('fundsHub.accounts.urls')),
-    #path('fundraisers', include('fundsHub.fundraisers.urls')),
+    path('projects', include('fundsHub.projects.urls')),
 
 
 ]
