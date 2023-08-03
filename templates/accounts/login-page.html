@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
+    <div class='login-register-div'>
+    <div class='login-register-box'>
+        <h1>FundsHub</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.username.errors }}
+            {{ form.username|placeholder:'Username' }}
+            {{ form.password.errors }}
+            {{ form.password|placeholder:'Password' }}
+
+            <button type="submit">Login</button>
+        </form>
+        <p>
+        Don't have an account? <a href="{% url "register" %}">Register here</a>
+    </p>
+    </div>
+    </div>
+
+{% endblock %}

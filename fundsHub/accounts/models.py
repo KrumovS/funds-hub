@@ -1,5 +1,6 @@
 import sys
 
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 from django.db import models
 
@@ -17,13 +18,9 @@ class AccountLevel(models.Model):
         return self.name
 
 
-class Profile(models.Model):
-    first_name = models.CharField(max_length=25, validators=(MinLengthValidator(2), start_with_letter,))
-    last_name = models.CharField(max_length=35, validators=(MinLengthValidator(1), start_with_letter,))
-    email = models.EmailField(max_length=40)
-    password = models.CharField(max_length=20, validators=(MinLengthValidator(8),))
+class FundsHubUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='assets/profile_pictures/', blank=True, null=True)
-    account_level = models.ForeignKey(AccountLevel, on_delete=models.PROTECT)
+    account_level = models.ForeignKey(AccountLevel, on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.first_name, self.last_name
