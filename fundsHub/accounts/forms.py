@@ -10,6 +10,19 @@ class FundsHubUserCreateForm(UserCreationForm):
         fields = ('username', 'email')
 
 
+class FundsHubUserEditForm(forms.ModelForm):
+    class Meta():
+        model = FundsHubUser
+        fields = ('username', 'first_name', 'last_name', 'email', 'profile_picture')
+        exclude = ('password',)
+        labels = {'username': 'Username',
+                  'first_name': 'First Name:',
+                  'last_name': 'Last Name',
+                  'email': 'Email',
+                  'profile_picture': 'Image:',
+                  }
+
+
 class LoginForm(AuthenticationForm):
     username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True, "placeholder": "Username"}))
     password = forms.CharField(
