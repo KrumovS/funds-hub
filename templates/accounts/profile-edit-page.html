@@ -1,50 +1,77 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 {% load static %}
 {% block content %}
 
-    <!-- Start Edit Profile Section -->
- <div class="edit-delete">
- <h2>Edit Profile</h2>
- <!-- Start Edit Profile From -->
- <form method="post">
- {% csrf_token %}
+    <div class="container">
+    <h1>Edit Profile</h1>
+  	<hr>
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+        </div>
+      </div>
 
- {% for field in form %}
- <p class="error"> {{ field.errors }} </p>
- <div class="label-input">
- <label>{{ field.label }}</label>
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <h3>Personal info</h3>
 
- {% if not field.label == "Gender:" %}
- {{ field }}
- {% else %}
- <div class="list-choice">
- <div class="list-choice-title">Gender</div>
- <div class="list-choice-objects">
+        <form class="form-horizontal" role="form" method="post">
+            {% csrf_token %}
 
- {% for type, value in form.fields.gender.choices %}
- <label>
- <input type="radio" value="{{ value }}"
-name="gender"
- {% if form.gender.value == value %}
- checked
- {% endif %}/>
- <span>{{ value }}</span>
- </label>
- {% endfor %}
+          <div class="form-group">
+              {{ form.username.errors }}
+            <label class="col-lg-3 control-label">Username:</label>
+            <div class="col-lg-8">
+                {{ form.username }}
+            </div>
+          </div>
 
- </div>
- </div>
- {% endif %}
+          <div class="form-group">
+              {{ form.first_name.errors }}
+            <label class="col-lg-3 control-label">First name:</label>
+            <div class="col-lg-8">
+                {{ form.first_name }}
+            </div>
+          </div>
+          <div class="form-group">
+              {{ form.last_name.errors }}
+            <label class="col-lg-3 control-label">Last name:</label>
+            <div class="col-lg-8">
+              {{ form.last_name }}
+            </div>
+          </div>
 
- </div>
- <br>
- {% endfor %}
+          <div class="form-group">
+              {{ form.email.errors }}
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+                {{ form.email }}
+            </div>
+          </div>
 
- <!-- Edit Profile Button -->
- <button class="edit-btn" type="submit">Edit</button>
- </form>
- <!-- End Edit Profile Form -->
- </div>
- <!-- End Edit Profile Section -->
+            <div class="form-group">
+              {{ form.profile_picture.errors }}
+            <label class="col-lg-3 control-label">Profile picture:</label>
+            <div class="col-lg-8">
+                {{ form.profile_picture }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Cancel">
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+    <hr>
+</div>
+
 
 {% endblock %}

@@ -16,14 +16,6 @@ def show_profile_details(request, pk):
     return render(request, template_name='accounts/profile-details-page.html', context=context)
 
 
-def edit_profile(request, pk):
-    user = FundsHubUser.objects.get(pk=pk)
-    context = {
-        "user": user,
-    }
-    return render(request, template_name='accounts/profile-edit-page.html', context=context)
-
-
 def delete_profile(request, pk):
     user = FundsHubUser.objects.get(pk=pk)
     context = {
