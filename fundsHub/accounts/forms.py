@@ -24,8 +24,8 @@ class FundsHubUserEditForm(forms.ModelForm):
 
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True, "placeholder": "Username"}))
+    username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True, "placeholder": "Username", 'class': 'form-control'}))
     password = forms.CharField(
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "placeholder": "Password"})
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "placeholder": "Password", 'class': 'form-control'})
     )

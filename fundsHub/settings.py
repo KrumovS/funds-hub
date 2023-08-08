@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'fundsHub.common',
     'fundsHub.projects',
 
+    'widget_tweaks',
+
 ]
 
 MIDDLEWARE = [
