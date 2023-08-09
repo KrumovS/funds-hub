@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% load custom_filters %}
 {% load static %}
 {% block content %}
@@ -6,10 +7,14 @@
     <div class="container">
     <h1>Edit Profile</h1>
   	<hr>
-	<div class="row">
+
+<div class="row">
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
+          <img src="//placehold.it/150" class="avatar img-circle" alt="avatar">
+          <h5>{{user.username}}</h5>
+
         </div>
       </div>
 
@@ -20,44 +25,14 @@
         <form class="form-horizontal" role="form" method="post">
             {% csrf_token %}
 
-          <div class="form-group">
-              {{ form.username.errors }}
-            <label class="col-lg-3 control-label">Username:</label>
-            <div class="col-lg-8">
-                {{ form.username }}
-            </div>
-          </div>
-
-          <div class="form-group">
-              {{ form.first_name.errors }}
-            <label class="col-lg-3 control-label">First name:</label>
-            <div class="col-lg-8">
-                {{ form.first_name }}
-            </div>
-          </div>
-          <div class="form-group">
-              {{ form.last_name.errors }}
-            <label class="col-lg-3 control-label">Last name:</label>
-            <div class="col-lg-8">
-              {{ form.last_name }}
-            </div>
-          </div>
-
-          <div class="form-group">
-              {{ form.email.errors }}
-            <label class="col-lg-3 control-label">Email:</label>
-            <div class="col-lg-8">
-                {{ form.email }}
-            </div>
-          </div>
-
-            <div class="form-group">
-              {{ form.profile_picture.errors }}
-            <label class="col-lg-3 control-label">Profile picture:</label>
-            <div class="col-lg-8">
-                {{ form.profile_picture }}
-            </div>
-          </div>
+{% for field in form %}
+ <p class="error">  </p>
+ <div class="form-group">
+{{ field.errors }}
+ <label class="col-lg-3 control-label">{{ field.label }}</label>
+ <div class="col-lg-8">{{ field|add_class:"form-control" }}</div>
+</div>
+ {% endfor %}
 
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
