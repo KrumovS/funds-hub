@@ -15,10 +15,10 @@ class FundsHubUserEditForm(forms.ModelForm):
         model = FundsHubUser
         fields = ('username', 'first_name', 'last_name', 'email', 'profile_picture')
         exclude = ('password',)
-        labels = {'username': 'Username',
+        labels = {'username': 'Username:',
                   'first_name': 'First Name:',
-                  'last_name': 'Last Name',
-                  'email': 'Email',
+                  'last_name': 'Last Name:',
+                  'email': 'Email:',
                   'profile_picture': 'Image:',
                   }
 
