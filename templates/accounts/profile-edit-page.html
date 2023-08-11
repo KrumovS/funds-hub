@@ -12,18 +12,24 @@
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
-          <img src="//placehold.it/150" class="avatar img-circle" alt="avatar">
+          {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url}}" class="avatar img-circle" alt="Profile Picture" width="150" height="150">
+            {% else %}
+            <img src="//placehold.it/150" class="avatar img-circle" alt="Default Profile Picture">
+            {% endif %}
           <h5>{{user.username}}</h5>
-            <p class="text-muted mb-4">Show Account Level here</p>
+            <p class="text-muted mb-4">Account Level: <strong>{{user.account_level}}</strong></p>
+            <p class="text-muted mb-4">Total amount donated: <strong>{{user.amount_donated}}</strong></p>
 
         </div>
       </div>
 
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
-        <h3 style="margin-bottom: 50px;">Personal info</h3>
+        <h3>Personal information</h3>
+        <p class="text-muted mb-0" style="margin-bottom: 50px;">{{user.account_level.reward}}</p>
 
-        <form class="form-horizontal" role="form" method="post">
+        <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
 {% for field in form %}
@@ -40,7 +46,7 @@
             <div class="col-md-8">
               <input type="submit" class="btn btn-primary" value="Save Changes">
               <span></span>
-              <a href="{% url "profile-details" user.pk %}" class="btn btn-outline-primary ms-1">Cancel</a>
+              <a href="{% url "profile-details" user.pk %}" class="btn btn-outline-primary ms-1">Return to Profile</a>
             </div>
           </div>
         </form>

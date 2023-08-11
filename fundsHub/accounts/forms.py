@@ -22,6 +22,23 @@ class FundsHubUserEditForm(forms.ModelForm):
                   'profile_picture': 'Image:',
                   }
 
+        widgets = {
+            'username': forms.TextInput(attrs={'readonly': 'readonly'}),
+        }
+
+
+class FundsHubUserDeleteForm(forms.Form):
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        label='Confirm Password'
+    )
+
+    confirm_deletion = forms.BooleanField(
+        initial=False,
+        required=True,
+        label='I understand that deleting my account is irreversible.'
+    )
+
 
 class LoginForm(AuthenticationForm):
     username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True, "placeholder": "Username", 'class': 'form-control'}))

@@ -8,7 +8,7 @@ class AccountLevelAdmin(admin.ModelAdmin):
 
 
 class FundsHubUserAdmin(admin.ModelAdmin):
-    list_display = ("first_name", "last_name", "email", "account_level")
+    list_display = ("username", "email")
 
 
 admin.site.register(AccountLevel, AccountLevelAdmin)

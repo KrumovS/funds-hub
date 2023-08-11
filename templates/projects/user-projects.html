@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <h2 class="container text-center">My Projects</h2>
+
+{% if projects %}
+<ul>
+    {% for project in projects %}
+    <div class="container text-left">
+  <br>
+  <div class="row">
+    <div class="col-sm-4">
+      <a href="{% url 'project-detail' pk=project.pk %}"><img src="{{ project.picture.url}}" class="img-responsive" style="width:400px; height:250px;" alt="Image">
+      <h4>{{ project.name}}</h4></a>
+      <p>{{ project.short_description}}</p>
+    </div>
+  </div>
+  </div>
+    {% endfor %}
+
+</ul>
+
+{% else %}
+<h2 class="container text-center">You have no projects!</h2>
+{% endif %}
+{% endblock %}
+

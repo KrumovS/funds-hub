@@ -42,11 +42,13 @@
       <ul class="nav navbar-nav">
         <li><a href="{% url "browse-projects" %}">Browse Projects</a></li>
         <li><a href="{% url "our-mission" %}">Our Mission</a></li>
-          <li><a ID="get-started" href="{% url "get-started" %}"><b>Get Started</b></a></li>
+          <li><a ID="create-project" href="{% url "create-project" %}"><b>Create Project</b></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
           <li><a href="{% url "profile-details" user.pk %}">Welcome, {{user.username}}</a></li>
+          <li><a href="{% url "my-projects" user.pk%}">My Projects</a></li>
+
           <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
           {% else %}
           <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

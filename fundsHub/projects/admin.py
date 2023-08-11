@@ -15,3 +15,5 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category)
 admin.site.register(ProjectCompleteness, ProjectCompletenessAdmin)
 
+
+
