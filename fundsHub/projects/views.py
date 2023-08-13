@@ -6,7 +6,9 @@ from fundsHub.projects.models import Project
 
 
 def browse_projects(request):
-    return render(request, template_name='projects/browse-projects.html')
+    projects = Project.objects.all()
+    return render(request, template_name='projects/browse-projects.html', context={'projects': projects})
+
 
 @login_required
 def user_projects(request, pk):
@@ -16,6 +18,7 @@ def user_projects(request, pk):
         projects = []
 
     return render(request, template_name='projects/user-projects.html', context={'projects': projects})
+
 
 @login_required
 def project_detail(request, pk):
