@@ -32,7 +32,7 @@ def project_detail(request, pk):
 @login_required
 def create_project(request):
     if request.method == 'POST':
-        form = CreateProjectForm(request.POST)
+        form = CreateProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.user = request.user

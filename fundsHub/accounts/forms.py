@@ -11,7 +11,7 @@ class FundsHubUserCreateForm(UserCreationForm):
 
 
 class FundsHubUserEditForm(forms.ModelForm):
-    class Meta():
+    class Meta:
         model = FundsHubUser
         fields = ('username', 'first_name', 'last_name', 'email', 'profile_picture')
         exclude = ('password',)
