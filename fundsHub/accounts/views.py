@@ -18,7 +18,7 @@ def show_profile_details(request, pk):
 
 
 @login_required
-def delete_profile(request):
+def delete_profile(request, pk):
     if request.method == 'POST':
         form = FundsHubUserDeleteForm(request.POST)
         if form.is_valid():
