@@ -20,9 +20,8 @@ class FundsHubUser(AbstractUser):
     amount_donated = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0)])
     account_level = models.ForeignKey(AccountLevel, on_delete=models.PROTECT, default=1)
 
+    def total_donations(self):
+        return self.donation_set.aggregate(total=models.Sum('amount'))['total'] or 0
+
     def __str__(self):
         return self.username
-
-
-
-

@@ -2,30 +2,33 @@
 {% load static %}
 {% block content %}
 
-<div class="jumbotron">
-  <div class="container text-center hero-text">
-    <h1 class=" fw-bold display-4">Dream Big</h1>
-    <p class="display-6">Bring your creative project to life with us.</p>
-  </div>
-</div>
-
-<div class="container text-left">
-  <h4 class="display-6 mt-4">LATEST PROJECTS</h4><br>
-  <div class="row">
-
-    {% for project in projects %}
-
-    <div class="col-sm-4">
-      <a class="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover" href="{% url 'project-detail' pk=project.pk %}">
-          <img src="{{ project.picture.url }}" class="img-responsive mb-2" style="width:100%; height:250px;" alt="Image"></a>
-      <a class="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover" href="{% url 'project-detail' pk=project.pk %}">
-          <h5 class="fw-normal">{{ project.name}}</h5></a>
-      <p>{{ project.short_description }}</p>
+    <div class="jumbotron">
+        <div class="container text-center hero-text">
+            <h1 class=" fw-bold display-4">Dream Big</h1>
+            <p class="display-6">Bring your creative project to life with us.</p>
+        </div>
     </div>
 
-    {% endfor %}
-  </div>
-</div><br>
+    <div class="container text-left">
+        <h4 class="display-6 mt-4">LATEST PROJECTS</h4><br>
+        <div class="row">
+
+            {% for project in projects %}
+
+                <div class="col-sm-4">
+                    <a class="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover"
+                       href="{% url 'project-detail' pk=project.pk %}">
+                        <img src="{{ project.picture.url }}" class="img-responsive mb-2"
+                             style="width:100%; height:250px;" alt="Image"></a>
+                    <a class="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover"
+                       href="{% url 'project-detail' pk=project.pk %}">
+                        <h5 class="fw-normal">{{ project.name }}</h5></a>
+                    <p>{{ project.short_description }}</p>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div><br>
 
 
 {% endblock %}

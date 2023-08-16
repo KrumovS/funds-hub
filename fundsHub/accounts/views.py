@@ -1,12 +1,13 @@
+from django.contrib.auth import views as auth_views, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
-from django.contrib.auth import views as auth_views, authenticate
 
 from fundsHub.accounts.forms import FundsHubUserCreateForm, LoginForm, FundsHubUserEditForm, FundsHubUserDeleteForm
 from fundsHub.accounts.models import FundsHubUser
+
 
 @login_required
 def show_profile_details(request, pk):
@@ -59,4 +60,3 @@ class UserEditView(LoginRequiredMixin, views.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
-

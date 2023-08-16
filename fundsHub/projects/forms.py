@@ -1,4 +1,5 @@
 from django import forms
+
 from .models import Project
 
 
@@ -17,4 +18,17 @@ class CreateProjectForm(forms.ModelForm):
 
         widgets = {
             'project_end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+
+class ProjectEditForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ('name', 'short_description')
+        labels = {'name': 'Name:',
+                  'short_description': 'Short Description:',
+                  }
+
+        widgets = {
+            'username': forms.TextInput(attrs={'readonly': 'readonly'}),
         }

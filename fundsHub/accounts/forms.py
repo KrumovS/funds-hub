@@ -41,8 +41,10 @@ class FundsHubUserDeleteForm(forms.Form):
 
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True, "placeholder": "Username", 'class': 'form-control'}))
+    username = UsernameField(
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": "Username", 'class': 'form-control'}))
     password = forms.CharField(
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "placeholder": "Password", 'class': 'form-control'})
+        widget=forms.PasswordInput(
+            attrs={"autocomplete": "current-password", "placeholder": "Password", 'class': 'form-control'})
     )

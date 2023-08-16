@@ -5,47 +5,50 @@
 {% block content %}
 
     <div class="container mt-4">
-    <h1 class="display-5">Delete Account</h1>
-  	<hr>
+        <h1 class="display-5">Delete Account</h1>
+        <hr>
 
-<div class="row">
-      <!-- left column -->
-      <div class="col-md-3">
-        <div class="text-center">
-          {% if user.profile_picture %}
-            <img src="{{ user.profile_picture.url}}" class="avatar img-circle" alt="Profile Picture" width="150" height="150">
-            {% else %}
-            <img src="//placehold.it/150" class="avatar img-circle" alt="Default Profile Picture">
-            {% endif %}
-          <h5>{{user.username}}</h5>
-            <p class="text-muted mb-4">Account Level: <strong>{{user.account_level}}</strong></p>
-            <p class="text-muted mb-4">Total amount donated: <strong>{{user.amount_donated}}</strong></p>
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" class="avatar img-circle" alt="Profile Picture"
+                             width="150" height="150">
+                    {% else %}
+                        <img src="//placehold.it/150" class="avatar img-circle" alt="Default Profile Picture">
+                    {% endif %}
+                    <h5>{{ user.username }}</h5>
+                    <p class="text-muted mb-4">Account Level: <strong>{{ user.account_level }}</strong></p>
+                    <p class="text-muted mb-4">Total amount donated: <strong>{{ user.amount_donated }}</strong></p>
 
-        </div>
-      </div>
-
-      <!-- edit form column -->
-      <div class="col-md-9 personal-info">
-        <h3 style="margin-bottom: 35px; margin-top: 35px">Are you sure you want to delete your profile?</h3>
-          <p><strong>Deleting your account removes it from FundsHub and our administrators won't be able to bring it back for you!</strong></p>
-
-
-        <form class="form-horizontal" role="form" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-
-          <div class="form-group">
-            <label class="col-md-3 control-label"></label>
-            <div class="col-md-8">
-              <input type="submit" class="btn btn-primary" value="Delete">
-              <span></span>
-              <a href="{% url "profile-details" user.pk %}" class="btn btn-outline-primary ms-1">Cancel</a>
+                </div>
             </div>
-          </div>
-        </form>
-      </div>
-  </div>
-    <hr>
-</div>
+
+            <!-- edit form column -->
+            <div class="col-md-9 personal-info">
+                <h3 style="margin-bottom: 35px; margin-top: 35px">Are you sure you want to delete your profile?</h3>
+                <p><strong>Deleting your account removes it from FundsHub and our administrators won't be able to bring
+                    it back for you!</strong></p>
+
+
+                <form class="form-horizontal" role="form" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <input type="submit" class="btn btn-primary" value="Delete">
+                            <span></span>
+                            <a href="{% url "profile-details" user.pk %}"
+                               class="btn btn-outline-primary ms-1">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+    </div>
 
 {% endblock %}
