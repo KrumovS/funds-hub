@@ -27,7 +27,7 @@ def user_projects(request, pk):
 
 
 def project_detail(request, pk):
-    project = Project.objects.get(pk=pk)
+    project = get_object_or_404(Project, pk=pk)
     progress_percentage = 0
     today = date.today()
 
@@ -36,20 +36,19 @@ def project_detail(request, pk):
 
     completeness = ProjectCompleteness.objects.filter(min_percentage__lte=progress_percentage,
                                                       max_percentage__gt=progress_percentage).first()
-    if completeness is None:
-        default_completeness = ProjectCompleteness.objects.filter(min_percentage=0).first()
-        completeness_description = default_completeness.description if default_completeness else "No description available"
-    else:
-        completeness_description = completeness.description
+
+    completeness_description = completeness.description
 
     delta = project.project_end_date - today
     days_remaining = max(0, delta.days)
+    project_active = days_remaining > 0
 
     context = {
         "project": project,
         "progress_percentage": progress_percentage,
         "completeness_description": completeness_description,
         "days_remaining": days_remaining,
+        "project_active": project_active
     }
     return render(request, template_name='projects/project-details.html', context=context)
 
@@ -72,26 +71,33 @@ def edit_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
 
     if project.user != request.user:
-        return HttpResponseForbidden("You don't have permission to edit this project")
+        return redirect('project-detail', pk=project.pk)
+
+    today = date.today()
+    if project.project_end_date <= today:
+        return redirect('project-detail', pk=project.pk)
 
     if request.method == 'POST':
-        form = ProjectEditForm(request.POST, instance=project)
+        form = ProjectEditForm(request.POST, request.FILES, instance=project)
 
         if form.is_valid():
             form.save()
-            url = reverse(viewname='my-projects', args=[project.user.pk])
-            return HttpResponseRedirect(url)
+            return redirect('project-detail', pk=project.pk)
     else:
         form = ProjectEditForm(instance=project)
 
-    return render(request, template_name='projects/edit-project.html', context={'form': form})
+    return render(request, template_name='projects/edit-project.html', context={'form': form, 'project': project})
 
 
 def delete_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
 
     if project.user != request.user:
-        return HttpResponseForbidden("You don't have permission to delete this project")
+        return redirect('project-detail', pk=project.pk)
+
+    today = date.today()
+    if project.project_end_date <= today:
+        return redirect('project-detail', pk=project.pk)
 
     if request.method == 'POST':
         project.delete()
@@ -105,26 +111,28 @@ def delete_project(request, pk):
 def donate(request, pk):
     project = get_object_or_404(Project, pk=pk)
     if request.method == 'POST':
-        amount = int(request.POST.get('amount', '0.00'))
+        try:
+            amount = int(request.POST.get('amount'))
+        except ValueError:
+            messages.error(request, message='Please enter a valid donation amount.')
+            return redirect('project-detail', pk=project.pk)
 
-        # Update project's donation amount
+        if amount <= 0:
+            messages.error(request, message='Please enter a positive donation amount.')
+            return redirect('project-detail', pk=project.pk)
+
         project.donated += amount
         project.save()
 
-        # Update user's total donated amount
-        request.user.amount_donated += int(
-            amount)  # Assuming `amount_donated` stores the value in cents or similar to avoid float issues.
+        request.user.amount_donated += amount
         request.user.save()
 
-        # Save the donation record for the user
         donation = Donation(user=request.user, project=project, amount=amount)
         donation.save()
 
-        update_user_account_level(request.user)
+        messages.success(request, message=f'Thank you for your donation of {amount}!')
 
-        messages.success(request, f'Thank you for your donation of ${amount}!')
-
-    return redirect('home')
+    return redirect('project-detail', pk=project.pk)
 
 
 def update_user_account_level(user):

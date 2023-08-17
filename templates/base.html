@@ -6,19 +6,8 @@
     <title>Funds Hub</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap 3
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  -->
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous"></script>
-
     <link rel="icon" type="image/x-icon" href="{% static 'images/logo.png' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
@@ -39,39 +28,6 @@
 </head>
 <body>
 
-<!-- NavBar with Bootstrap 3
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand home" href="{% url "home" %}">Funds Hub</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="{% url "browse-projects" %}">Browse Projects</a></li>
-        <li><a href="{% url "our-mission" %}">Our Mission</a></li>
-          <li><a ID="create-project" href="{% url "create-project" %}"><b>Create Project</b></a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-          {% if user.is_authenticated %}
-          <li><a href="{% url "profile-details" user.pk %}">Welcome, {{user.username}}</a></li>
-          <li><a href="{% url "my-projects" user.pk%}">My Projects</a></li>
-
-          <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-          {% else %}
-          <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-          {% endif %}
-      </ul>
-    </div>
-  </div>
-</nav>
--->
-
-<!-- NavBar with Bootstrap 5 -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand logo" href="{% url "home" %}">Funds Hub</a>
@@ -99,11 +55,11 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{% url "my-projects" user.pk %}">My Projects</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="{% url "logout" %}"><span
-                            class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url "logout" %}">
+                        <i class="bi bi-box-arrow-right"></i> Logout</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url "login" %}"><span
-                            class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url "login" %}">
+                        <i class="bi bi-box-arrow-in-right"></i> Login</a></li>
                 {% endif %}
 
             </ul>
@@ -122,6 +78,10 @@
 <footer class="container-fluid text-center bg-dark">
     <p>Copyright © 2023 Funds Hub. All rights reserved.</p>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

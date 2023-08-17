@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
 
     <div class="container mt-4">
@@ -10,18 +9,43 @@
             <!-- left column -->
             <div class="col-md-3">
                 <div class="text-center">
-                    <img src="{{ project.picture.url }}" class="avatar img-circle mb-3" alt="Profile Picture"
+                    <img src="{{ project.picture.url }}" class="mb-3" alt="Project Picture"
                          height="150">
 
                     <div class="d-flex justify-content-center mb-2">
 
-                        {% if project.user == request.user %}
+                        {% if project.user == request.user and days_remaining > 0 %}
                             <a href="{% url "edit-project" project.pk %}" class="btn btn-primary">Edit</a>
                             <a href="{% url "delete-project" project.pk %}"
                                class="btn btn-outline-primary ms-1">Delete</a>
                         {% endif %}
                     </div>
 
+                    {% if days_remaining <= 0 and project.funding_goal <= project.donated %}
+                        <div class="card border-success mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Project Completed</div>
+                            <div class="card-body text-success">
+                                <h5 class="card-title"> Success!</h5>
+                                <p class="card-text">Thank you to every supporter who made this dream a reality.
+                                    Together, we've reached our funding goal and are now one step closer to bringing
+                                    this
+                                    project to life. Stay tuned for more updates and the next stages of our journey!</p>
+                            </div>
+                        </div>
+                    {% elif days_remaining <= 0 and project.funding_goal > project.donated %}
+                        <div class="card border-danger mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Project Completed</div>
+                            <div class="card-body text-danger">
+                                <h5 class="card-title">Project Update </h5>
+                                <p class="card-text">Despite the incredible support and passion from our community,
+                                    we unfortunately didn't meet our funding goal this time. We are deeply thankful to
+                                    every person who believed in this project and contributed. This isn't the end —
+                                    we're
+                                    taking this as a learning experience and will be back with improvements and renewed
+                                    energy. Stay connected for future updates!</p>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -107,23 +131,36 @@
 
                         </div>
 
+                        {% if days_remaining > 0 %}
+                            <form action="{% url 'donate' project.pk %}" method="post" class="text-center mb-4">
+                                {% csrf_token %}
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <label class="col-form-label" for="amount">Donation Amount:</label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" type="number" name="amount" id="amount"
+                                               placeholder="0.00">
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-primary" type="submit">Donate</button>
+                                    </div>
+                                </div>
+                            </form>
+                        {% endif %}
 
-                        <form action="{% url 'donate' project.pk %}" method="post" class="text-center mb-4">
-                            {% csrf_token %}
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <label class="col-form-label" for="amount">Donation Amount:</label>
-                                </div>
-                                <div class="col">
-                                    <input class="form-control" type="number" name="amount" id="amount"
-                                           placeholder="$10.00">
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-primary" type="submit">Donate</button>
-                                </div>
+                        {% if messages %}
+                            <div class="container mt-3">
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                                         role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
                             </div>
-                        </form>
-
+                        {% endif %}
 
                     </div>
                 </div>
