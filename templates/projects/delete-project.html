@@ -1,16 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Are you sure you want to delete "{{ project.name }}"?</h2>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-    <a href="{% url 'my-projects' user.pk %}">No, cancel</a>
-</form>
-</body>
-</html>
+    <div class="container mt-4">
+        <h1 class="display-5">Delete Project</h1>
+        <hr>
+
+        <!-- edit form column -->
+        <div class="col text-center">
+            <h3 style="margin-top: 35px">Are you sure you want to delete your project:</h3>
+            <h5>"{{ project.name }}"?</h5>
+
+            <form class="form-horizontal" role="form" method="post">
+                {% csrf_token %}
+
+                <div class="mb-3 text-center">
+                    <label class="form-label"></label>
+                    <div>
+                        <input type="submit" class="btn btn-primary" value="Yes, delete">
+                        <a class="btn btn-outline-primary ms-1" href="{% url 'my-projects' user.pk %}">No, cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr>
+    </div>
+
+
+{% endblock %}

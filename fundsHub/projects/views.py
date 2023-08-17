@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponseRedirect
@@ -27,6 +29,8 @@ def user_projects(request, pk):
 def project_detail(request, pk):
     project = Project.objects.get(pk=pk)
     progress_percentage = 0
+    today = date.today()
+
     if project.funding_goal > 0:
         progress_percentage = (project.donated / project.funding_goal) * 100
 
@@ -38,10 +42,14 @@ def project_detail(request, pk):
     else:
         completeness_description = completeness.description
 
+    delta = project.project_end_date - today
+    days_remaining = max(0, delta.days)
+
     context = {
         "project": project,
         "progress_percentage": progress_percentage,
         "completeness_description": completeness_description,
+        "days_remaining": days_remaining,
     }
     return render(request, template_name='projects/project-details.html', context=context)
 
