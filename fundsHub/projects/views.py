@@ -134,15 +134,3 @@ def donate(request, pk):
 
     return redirect('project-detail', pk=project.pk)
 
-
-def update_user_account_level(user):
-    total_donations = user.amount_donated
-
-    try:
-        new_level = AccountLevel.objects.get(min_amount__lte=total_donations, max_amount__gte=total_donations)
-    except AccountLevel.DoesNotExist:
-        new_level = None
-
-    if new_level:
-        user.account_level = new_level
-        user.save()
